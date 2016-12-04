@@ -6,7 +6,7 @@
 /*   By: tyeung <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 22:09:36 by tyeung            #+#    #+#             */
-/*   Updated: 2016/11/12 21:14:14 by tyeung           ###   ########.fr       */
+/*   Updated: 2016/12/04 12:35:13 by tyeung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
