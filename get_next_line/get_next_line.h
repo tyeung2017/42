@@ -22,4 +22,10 @@
 
 int		get_next_line(const int fd, char **line);
 
+typedef		s_text
+{
+	int		fd;
+	char	*str;
+}			t_text;
+
 #endif
