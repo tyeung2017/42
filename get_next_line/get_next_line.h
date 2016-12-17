@@ -16,16 +16,16 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "libft.h"
+# include "libft/libft.h"
 
 # define BUFF_SIZE 1000
 
 int		get_next_line(const int fd, char **line);
 
-typedef		s_text
+typedef	struct	s_text
 {
-	int		fd;
-	char	*str;
-}			t_text;
+	int			fd;
+	char		*str;
+}				t_text;
 
 #endif
