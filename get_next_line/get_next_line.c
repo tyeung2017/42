@@ -14,25 +14,37 @@
 
 int		no_nl(char **str, char **line, int ret)
 {
+	int	count;
+
+	count = 0;
 	*line = ft_strdup(*str);	
+	count = ft_strlen(*str);
 	ft_strdel(str);
     if (ret == 0)
     {
-       *line = NULL;
-        return (0);
+		if (count > 0)
+        	return (1);
+       else
+		{
+			*line = NULL;
+			return (0);
+		}
      }
     return (1);
 }
+
+/*	
+**ft_strdel(&temp); why freeing that have issues
+*/
 
 int		nl_found(char **str, char **line, char *nl_pos)
 {
 	char	*temp;
 
 	*line = ft_strsub(*str, 0, nl_pos - *str);
-	temp = ft_strsub(*str, nl_pos - *str + 1, ft_strlen(nl_pos) - 1);//let see if the -1 is correct	
+	temp = ft_strsub(*str, nl_pos - *str + 1, ft_strlen(nl_pos) - 1);
 	ft_strdel(str);
 	*str = temp;
-//	ft_strdel(&temp); why freeing that have issues
 	return(1);
 }
 
@@ -69,7 +81,7 @@ t_text	*m_list(int fd, t_list **head)
 	if (((t_text *)((*head)->content))->fd == fd)
 		return ((t_text *)((*head)->content));
 	else
-		m_list(fd, &((*head)->next)); //let's see if we need the return in the front
+		return  m_list(fd, &((*head)->next)); //let's see if we need the return in the front; helps reducing yyang tests error; dont know why though
 	return (NULL);
 }
 
