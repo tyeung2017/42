@@ -6,7 +6,7 @@
 /*   By: tyeung <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 09:42:25 by tyeung            #+#    #+#             */
-/*   Updated: 2016/12/11 09:42:28 by tyeung           ###   ########.fr       */
+/*   Updated: 2016/12/18 02:55:22 by tyeung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 
-# define BUFF_SIZE 1000
+# define BUFF_SIZE 1
 
-int		get_next_line(const int fd, char **line);
+int				get_next_line(const int fd, char **line);
 
 typedef	struct	s_text
 {

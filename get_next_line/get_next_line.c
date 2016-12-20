@@ -6,7 +6,7 @@
 /*   By: tyeung <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 09:42:34 by tyeung            #+#    #+#             */
-/*   Updated: 2016/12/12 10:20:52 by tyeung           ###   ########.fr       */
+/*   Updated: 2016/12/19 22:23:41 by tyeung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,21 @@ int		no_nl(char **str, char **line, int ret)
 	int	count;
 
 	count = 0;
-	*line = ft_strdup(*str);	
+	*line = ft_strdup(*str);
 	count = ft_strlen(*str);
 	ft_strdel(str);
-    if (ret == 0)
-    {
+	if (ret == 0)
+	{
 		if (count > 0)
-        	return (1);
-       else
+			return (1);
+		else
 		{
 			*line = NULL;
 			return (0);
 		}
-     }
-    return (1);
+	}
+	return (1);
 }
-
-/*	
-**ft_strdel(&temp); why freeing that have issues
-*/
 
 int		nl_found(char **str, char **line, char *nl_pos)
 {
@@ -45,7 +41,7 @@ int		nl_found(char **str, char **line, char *nl_pos)
 	temp = ft_strsub(*str, nl_pos - *str + 1, ft_strlen(nl_pos) - 1);
 	ft_strdel(str);
 	*str = temp;
-	return(1);
+	return (1);
 }
 
 int		copy_lines(int ret, char *buf, char **str)
@@ -74,29 +70,30 @@ t_text	*m_list(int fd, t_list **head)
 	new = NULL;
 	if (*head == NULL)
 	{
-		new = ft_lstnew((void *)&(t_text){fd, NULL}, sizeof(t_text));//(void *) and typecasting may not need
+		new = ft_lstnew((void *)&(t_text){fd, NULL}, sizeof(t_text));
 		ft_lstadd(head, new);
-		return ((t_text *)((*head)->content)); 
+		return ((t_text *)((*head)->content));
 	}
 	if (((t_text *)((*head)->content))->fd == fd)
 		return ((t_text *)((*head)->content));
 	else
-		return  m_list(fd, &((*head)->next)); //let's see if we need the return in the front; helps reducing yyang tests error; dont know why though
+		return (m_list(fd, &((*head)->next)));
 	return (NULL);
 }
 
-int     get_next_line(const int fd, char **line)
+int		get_next_line(const int fd, char **line)
 {
 	static t_list	*head;
 	t_text			*temp;
 	int				ret;
 	char			*buff;
-	
-	ret = 42;	
-	if (fd < 0 || BUFF_SIZE < 1 || !line || !(buff = ft_strnew(BUFF_SIZE)) 
-|| !(temp = m_list(fd, &head)))
+
+	ret = 42;
+	if (fd < 0 || BUFF_SIZE < 1 || !line || !(buff = ft_strnew(BUFF_SIZE))
+			|| !(temp = m_list(fd, &head)))
 		return (-1);
-	while (temp->str == NULL || (!(ft_strchr(temp->str, '\n')) && (ret = read(fd, buff, BUFF_SIZE))))
+	while (temp->str == NULL || (!(ft_strchr(temp->str, '\n')) &&
+				(ret = read(fd, buff, BUFF_SIZE))))
 	{
 		if (copy_lines(ret, buff, &temp->str) == -1)
 			return (-1);
@@ -106,5 +103,5 @@ int     get_next_line(const int fd, char **line)
 		return (nl_found(&temp->str, line, ft_strchr(temp->str, '\n')));
 	else if (!(ft_strchr(temp->str, '\n')) && temp->str != NULL)
 		return (no_nl(&temp->str, line, ret));
-	return (ret || temp->str);	
+	return (-1);
 }
